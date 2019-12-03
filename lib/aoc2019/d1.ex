@@ -6,7 +6,10 @@ defmodule AOC2019.D1 do
     |> sum
   end
 
-  def part2(_input) do
+  def part2 do
+    input1
+    |> Stream.map(&total_fuel_required_for(&1))
+    |> sum
   end
 
   def input1 do
