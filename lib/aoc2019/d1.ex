@@ -6,7 +6,7 @@ defmodule AOC2019.D1 do
     |> sum
   end
 
-  def part2(input) do
+  def part2(_input) do
   end
 
   def input1 do
@@ -17,13 +17,26 @@ defmodule AOC2019.D1 do
     |> Stream.map(&String.to_integer(&1))
   end
 
-  # calculate fuel for given distance
-   def fuel_required_for(distance) do
+
+  def total_fuel_required_for(mass) when(mass > 0) do
+    fl = fuel_required_for(mass)
+    fl + total_fuel_required_for(fl)
+  end
+
+  def total_fuel_required_for(mass) when (mass < 1) do
+    0
+  end
+
+  # calculate fuel for given mass
+  def fuel_required_for(mass) do
     reduce_by_2 = fn(x) -> (x - 2) end
-    distance
-    |> div(3)
-    |> ceil
-    |> reduce_by_2.()
+    fuel = mass |> div(3) |> ceil |> reduce_by_2.()
+
+    if fuel < 0 do
+      0
+    else
+      fuel
+    end
   end
 
   def sum(arr) do
